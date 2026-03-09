@@ -1,10 +1,10 @@
 {
   "domain": "prowlarr",
   "name": "Prowlarr",
-  "codeowners": ["@YOUR_GITHUB_USERNAME"],
+  "codeowners": ["@wildenrou"],
   "config_flow": true,
   "documentation": "https://github.com/wildenrou/HA_Prowlarr",
   "issue_tracker": "https://github.com/wildenrou/HA_Prowlarr/issues",
   "requirements": [],
-  "version": "0.1.1"
+  "version": "0.1.2"
 }
