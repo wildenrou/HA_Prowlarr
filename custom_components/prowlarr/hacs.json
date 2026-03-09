@@ -1,5 +1,6 @@
 {
   "name": "Prowlarr",
-  "hacs": "2.0.5",
-  "homeassistant": "2025.09.0",
+  "content_in_root": false,
+  "render_readme": true,
+  "homeassistant": "2025.1.0"
 }

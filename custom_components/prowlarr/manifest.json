@@ -1,12 +1,10 @@
 {
   "domain": "prowlarr",
   "name": "Prowlarr",
-  "codeowners": ["@JosephMcGrath1999"],
+  "codeowners": ["@YOUR_GITHUB_USERNAME"],
   "config_flow": true,
-  "dependencies": [],
-  "documentation": "https://github.com/JosephMcGrath1999/HA_Prowlarr/blob/main/custom_components/prowlarr",
-  "iot_class": "local_polling",
-  "issue_tracker": "https://github.com/JosephMcGrath1999/HA_Prowlarr/issues",
+  "documentation": "https://github.com/YOUR_GITHUB_USERNAME/HA_Prowlarr",
+  "issue_tracker": "https://github.com/YOUR_GITHUB_USERNAME/HA_Prowlarr/issues",
   "requirements": [],
-  "version": "0.0.1"
+  "version": "0.1.0"
 }

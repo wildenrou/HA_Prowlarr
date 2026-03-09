@@ -1,38 +1,39 @@
+from __future__ import annotations
+
 from datetime import timedelta
 import logging
-from typing import Dict, Any
 
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from homeassistant.core import HomeAssistant
-from homeassistant.exceptions import ConfigEntryError
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .const import DOMAIN
-from .prowlarr_api import (
-    ProwlarrApi,
-    FailedToLogin,
-    ProwlarrCannotBeReached
+from .api import (
+    ProwlarrApiClient,
+    ProwlarrAuthenticationError,
+    ProwlarrConnectionError,
 )
+from .const import DEFAULT_SCAN_INTERVAL, DOMAIN
 
-_LOGGER= logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
-class ProwlarrDataCoordinator(DataUpdateCoordinator[Dict[str,Any]]):
-    def __init__(self, hass: HomeAssistant, client: ProwlarrApi):
-        self._client = client
 
+class ProwlarrDataUpdateCoordinator(DataUpdateCoordinator[dict]):
+    """Coordinator to manage fetching data from Prowlarr."""
+
+    def __init__(self, hass: HomeAssistant, api: ProwlarrApiClient) -> None:
         super().__init__(
             hass,
-            _LOGGER,
+            LOGGER,
             name=DOMAIN,
-            update_method=self._async_update_data,
-            update_interval=timedelta(minutes=10),
+            update_interval=timedelta(seconds=DEFAULT_SCAN_INTERVAL),
         )
-    
-    async def _async_update_data(self) -> Dict[str, Any]:
+        self.api = api
+
+    async def _async_update_data(self) -> dict:
         try:
-            return await self.hass.async_add_executor_job(self._client.update)
-        except FailedToLogin as err:
-            raise ConfigEntryNotReady('Failed to Log-in') from err
-        except ProwlarrCannotBeReached as err:
-            raise ConfigEntryNotReady('Prowlarr cannot be reached') from err
+            return await self.api.async_fetch_all()
+        except ProwlarrAuthenticationError as err:
+            raise UpdateFailed(f"Authentication failed: {err}") from err
+        except ProwlarrConnectionError as err:
+            raise UpdateFailed(f"Connection failed: {err}") from err
         except Exception as err:
-            raise ConfigEntryError('Prowlarr encountered unknown') from err
+            raise UpdateFailed(f"Unexpected error: {err}") from err
