@@ -3,8 +3,8 @@
   "name": "Prowlarr",
   "codeowners": ["@YOUR_GITHUB_USERNAME"],
   "config_flow": true,
-  "documentation": "https://github.com/YOUR_GITHUB_USERNAME/HA_Prowlarr",
-  "issue_tracker": "https://github.com/YOUR_GITHUB_USERNAME/HA_Prowlarr/issues",
+  "documentation": "https://github.com/wildenrou/HA_Prowlarr",
+  "issue_tracker": "https://github.com/wildenrou/HA_Prowlarr/issues",
   "requirements": [],
-  "version": "0.1.0"
+  "version": "0.1.1"
 }
