@@ -68,7 +68,7 @@ class ProwlarrApiClient:
         health = await self._get("health")
         indexers = await self._get("indexer")
         indexer_status = await self._get("indexerstatus")
-        applications = await self._get("application")
+        applications = await self._get("applications")
         download_clients = await self._get("downloadclient")
 
         summary = self._build_summary(
